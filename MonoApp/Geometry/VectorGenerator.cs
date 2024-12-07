@@ -8,7 +8,7 @@ namespace Mono.Geometry;
 public class VectorGenerator
 {
     public static IEnumerable<Vector3> Circle(int segments, float thetaOffset = 0) =>
-        Iterator
+        Iterators
             .Range((0, 2 * MathHelper.Pi), segments)
             .Select(theta => new Vector3(
                 (float)Math.Cos(-theta + thetaOffset),

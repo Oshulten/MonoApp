@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 
@@ -15,23 +14,18 @@ public class RectangularMesh : Mesh
         Width = width;
         Height = height;
 
-        Vertices = PlanarGrid(Width, Height);
-        Faces = MakeFaces();
-    }
+        Vertices = from uv in Iterators.Grid(Width, Height)
+                   select new Vector3(uv.Item1, uv.Item2, 0);
 
-    public static IEnumerable<Vector3> PlanarGrid(int width, int height)
-    {
-        var vertices = new List<Vector3>();
-
-        foreach (var v in Iterator.Range(width))
-        {
-            foreach (var u in Iterator.Range(height))
+        Faces = Iterators.DoubleRange(0, Height - 1, 0, Width - 1)
+            .SelectMany(uv =>
             {
-                vertices.Add(new(u, v, 0));
-            }
-        }
-
-        return vertices;
+                var u = uv.Item1;
+                var v = uv.Item2;
+                return new int[] {Index(u, v),
+                    Index(u + 1, v + 1),
+                    Index(u + 1, v)};
+            });
     }
 
     public int Index(int u, int v)
@@ -49,30 +43,5 @@ public class RectangularMesh : Mesh
             throw new ArgumentException($"{nameof(v)}: {v} must be greater or equal to 0.", nameof(v));
 
         return v * Width + u;
-    }
-
-    private IEnumerable<int> MakeFaces()
-    {
-        var indices = new List<int>();
-
-        foreach (var v in Enumerable.Range(0, Height - 1))
-        {
-            foreach (var u in Enumerable.Range(0, Width - 1))
-            {
-                indices.AddRange([
-                    Index(u, v),
-                    Index(u + 1, v + 1),
-                    Index(u + 1, v)
-                ]);
-
-                indices.AddRange([
-                    Index(u, v),
-                    Index(u, v + 1),
-                    Index(u + 1, v + 1)
-                ]);
-            }
-        }
-
-        return indices;
     }
 }

@@ -1,108 +1,88 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ColorHelper;
 
 namespace Mono.Geometry;
 
-public interface IVertexCollection
+public class TransformableCollection<T>
 {
-    
-    public void Draw(GraphicsDevice device);
-}
+    public IEnumerable<T> Entities { get; set; } = [];
+    public List<Func<T, T>> Transformations { get; set; } = [];
 
-public abstract class VertexCollection
-{
-    public IEnumerable<Vector3> Vertices { get; set; } = [];
-    public IEnumerable<Color> Colors { get; set; } = [];
-    public Matrix Transformation { get; set; } = Matrix.Identity;
-
-    public T Transform<T>(Func<Vector3, Vector3> transformation) where T: VertexCollection
+    public IEnumerable<T> TransformedEntities
     {
-        Vertices = Vertices.Select(vertex => transformation(vertex));
-        return (T)this;
-    }
-
-    public T TransformClone<T>(Func<Vector3, Vector3> transformation) where T: VertexCollection
-    {
-        var clone = (T)MemberwiseClone();
-        clone.Vertices = clone.Vertices.Select(vertex => transformation(vertex));
-        return clone;
-    }
-
-    public T Transform<T>(Matrix transformation) where T: VertexCollection
-    {
-        Transformation *= transformation;
-        return (T)this;
-    }
-
-    public T TransformClone<T>(Matrix transformation) where T: VertexCollection
-    {
-        var clone = (T)MemberwiseClone();
-        clone.Transformation *= transformation;
-        return clone;
-    }
-
-    public T ApplyTransformation<T>() where T: VertexCollection
-    {
-        Vertices = Vertices.Select(vertex => Vector3.Transform(vertex, Transformation));
-        Transformation = Matrix.Identity;
-        return (T)this;
-    }
-
-    public IEnumerable<T> LinearArray<T>(Vector3 step, int resultCount) where T: VertexCollection
-    {
-        return Enumerable
-            .Range(0, resultCount)
-            .Select(i =>
-            {
-                var clone = (T)MemberwiseClone();
-                clone.Transformation *= Matrix.CreateTranslation(step * i);
-                return clone;
-            });
-    }
-
-    public IEnumerable<T> RectangularArray<T>(Vector3 uStep, Vector3 vStep, int uResultCount, int vResultCount) where T: VertexCollection
-    {
-        return Enumerable
-            .Range(0, uResultCount)
-            .SelectMany(u => Enumerable.Range(0, vResultCount)
-                .Select(v =>
-                {
-                    var clone = (T)MemberwiseClone();
-                    clone.Transformation *= Matrix.CreateTranslation(uStep * u + vStep * v);
-                    return clone;
-                }));
-    }
-
-    public IEnumerable<T> PolarArray<T>(int steps) where T: VertexCollection
-    {
-        return Iterator.Range((0, (float)Math.PI * 2), steps)
-            .Select(theta =>
-            {
-                var clone = (T)MemberwiseClone();
-                clone.Transformation *= Matrix.CreateRotationZ(theta);
-                return clone;
-            });
-    }
-
-    public virtual void Log(string filePath)
-    {
-        string[] lines = { "First line", "Second line", "Third line" };
-
-        // Set a variable to the Documents path.
-        string docPath =
-          Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-        // Write the string array to a new file named "WriteLines.txt".
-        using var outputFile = new StreamWriter(Path.Combine(docPath, "WriteLines.txt"));
+        get
         {
-            foreach (string line in lines)
-                outputFile.WriteLine(line);
+            if (!Transformations.Any())
+                return Entities;
+
+            return from entity in Entities
+                   from transformation in Transformations
+                   select transformation(entity);
         }
     }
 
-    public abstract void Draw(GraphicsDevice device);
+
+    public int Count => Entities.Count();
+
+    public TransformableCollection<T> ApplyTransformations()
+    {
+        Entities = TransformedEntities;
+        Transformations.Clear();
+
+        return this;
+    }
+
+    public TransformableCollection<T> ApplyTransformation(Func<T, T> transformation)
+    {
+        Entities =
+            from entity in Entities
+            select transformation(entity);
+
+        return this;
+    }
+}
+
+public class VertexCollection : TransformableCollection<Vector3>
+{
+    public IEnumerable<Vector3> Vertices { get => Entities; set => Entities = value; }
+    public IEnumerable<Vector3> TransformedVertices => TransformedEntities;
+
+    public VertexCollection ApplyTransformation<T>(Matrix matrix)
+    where T : VertexCollection =>
+        (T)ApplyTransformation(vertex => Vector3.Transform(vertex, matrix));
+
+    public VertexCollection TransformedClone(Func<Vector3, Vector3> transformation) =>
+        (VertexCollection)((VertexCollection)MemberwiseClone())
+            .ApplyTransformation(transformation);
+
+    public IEnumerable<VertexCollection> LinearArray(Vector3 step, int resultCount)
+    {
+        return
+            from i in Enumerable.Range(0, resultCount)
+            select TransformedClone(vertex =>
+                Vector3.Transform(vertex, Matrix.CreateTranslation(step * i)));
+    }
+
+    public IEnumerable<T> RectangularArray<T>(Vector3 uStep, Vector3 vStep, int uResultCount, int vResultCount)
+    where T : VertexCollection
+    {
+        return
+            from u in Enumerable.Range(0, uResultCount)
+            from v in Enumerable.Range(0, vResultCount)
+            select (T)TransformedClone(vertex =>
+                Vector3.Transform(vertex, Matrix.CreateTranslation(uStep * u + vStep * v)));
+    }
+
+    public IEnumerable<VertexCollection> PolarArray(int steps)
+    {
+        return
+            from theta in Iterators.Range((0, (float)Math.PI * 2), steps)
+            select TransformedClone(vertex => Vector3.Transform(vertex, Matrix.CreateRotationZ(theta)));
+    }
+
+    public virtual void Draw(GraphicsDevice device) { }
 }

@@ -3,13 +3,24 @@ using Microsoft.Xna.Framework;
 
 namespace Mono.Geometry;
 
-public static class Iterator
+public static class Iterators
 {
+    public static IEnumerable<(int, int)> DoubleRange(int uStart, int uCount, int vStart, int vCount)
+    {
+        for (int u = uStart; u < uCount + uStart; u++)
+        {
+            for (int v = vStart; v < vCount + vStart; v++)
+            {
+                yield return (u, v);
+            }
+        }
+    }
+
     public static IEnumerable<float> Range(int numberOfValues)
     {
-        var delta = 1 / (numberOfValues - 1);
+        var delta = 1.0f / (numberOfValues - 1.0f);
 
-        for (var i = 0; i < numberOfValues; i++)
+        for (float i = 0; i < numberOfValues; i++)
         {
             yield return delta * i;
         }
@@ -26,36 +37,6 @@ public static class Iterator
         }
     }
 
-    public static IEnumerable<(float, float)> Grid(IEnumerable<float> uRange, IEnumerable<float> vRange)
-    {
-        foreach (var v in vRange)
-        {
-            foreach (var u in uRange)
-            {
-                yield return (u, v);
-            }
-        }
-    }
-
-    public static IEnumerable<Vector3> Transform(this IEnumerable<Vector3> vectors, Matrix matrix)
-    {
-        foreach (var vector in vectors)
-        {
-            yield return Vector3.Transform(vector, matrix);
-        }
-    }
-
-    public static IEnumerable<Vector3> VectorGrid(IEnumerable<float> uRange, IEnumerable<float> vRange)
-    {
-        foreach (var v in vRange)
-        {
-            foreach (var u in uRange)
-            {
-                yield return new Vector3(u, v, 0);
-            }
-        }
-    }
-
     public static IEnumerable<Vector3> VectorGrid(int numberOfUValues, int numberOfVValues)
     {
         foreach (var v in Range(numberOfVValues))
@@ -63,6 +44,17 @@ public static class Iterator
             foreach (var u in Range(numberOfUValues))
             {
                 yield return new Vector3(u, v, 0);
+            }
+        }
+    }
+
+    public static IEnumerable<(float, float)> Grid(int uValues, int vValues)
+    {
+        foreach (var v in Range(vValues))
+        {
+            foreach (var u in Range(uValues))
+            {
+                yield return (u, v);
             }
         }
     }
@@ -77,6 +69,14 @@ public static class Iterator
             {
                 yield return (u, v);
             }
+        }
+    }
+
+    public static IEnumerable<Vector3> Transform(this IEnumerable<Vector3> vectors, Matrix matrix)
+    {
+        foreach (var vector in vectors)
+        {
+            yield return Vector3.Transform(vector, matrix);
         }
     }
 }

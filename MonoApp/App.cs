@@ -71,8 +71,6 @@ public class App : Game
         if (_camera is null || _effect is null)
             return;
 
-        var mesh = new RectangularMesh(10, 5).Transform<Mesh>(Matrix.CreateScale(100));
-
         var origin = new Origin();
 
         GraphicsDevice.Clear(s_windowSettings.Background);
@@ -91,8 +89,8 @@ public class App : Game
         {
             pass.Apply();
 
-            foreach (var geometry in _geometry)
-                geometry.Draw(Device);
+            // foreach (var geometry in _geometry)
+            //     geometry.Draw(Device);
 
             origin.Draw(Device);
         }

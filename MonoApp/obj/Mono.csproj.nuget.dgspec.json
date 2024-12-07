@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\oshul\\Desktop\\Mono\\MonoApp\\Mono.csproj": {}
+    "C:\\Users\\oshul\\Desktop\\Mono\\monoapp\\Mono.csproj": {}
   },
   "projects": {
-    "C:\\Users\\oshul\\Desktop\\Mono\\MonoApp\\Mono.csproj": {
+    "C:\\Users\\oshul\\Desktop\\Mono\\monoapp\\Mono.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oshul\\Desktop\\Mono\\MonoApp\\Mono.csproj",
+        "projectUniqueName": "C:\\Users\\oshul\\Desktop\\Mono\\monoapp\\Mono.csproj",
         "projectName": "Mono",
-        "projectPath": "C:\\Users\\oshul\\Desktop\\Mono\\MonoApp\\Mono.csproj",
+        "projectPath": "C:\\Users\\oshul\\Desktop\\Mono\\monoapp\\Mono.csproj",
         "packagesPath": "C:\\Users\\oshul\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oshul\\Desktop\\Mono\\MonoApp\\obj\\",
+        "outputPath": "C:\\Users\\oshul\\Desktop\\Mono\\monoapp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\oshul\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Mono.Geometry;
@@ -14,12 +13,14 @@ public class Mesh : VertexCollection
     {
         device.DrawUserIndexedPrimitives(
             primitiveType: PrimitiveType.TriangleList,
-            vertexData: Vertices.Select(vertex => new VertexPositionColor(vertex, Color.Black)).ToArray(),
+            vertexData: TransformedEntities
+                .Select(vertex => new VertexPosition(vertex))
+                .ToArray(),
             vertexOffset: 0,
-            numVertices: Vertices.Count(),
+            numVertices: Count,
             indexData: Faces.ToArray(),
             indexOffset: 0,
             primitiveCount: Faces.Count() / 3,
-            vertexDeclaration: VertexPositionColor.VertexDeclaration);
+            vertexDeclaration: VertexPosition.VertexDeclaration);
     }
 }

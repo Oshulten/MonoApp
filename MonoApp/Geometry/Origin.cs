@@ -7,40 +7,33 @@ namespace Mono.Geometry;
 
 public class Origin
 {
-    readonly IEnumerable<Polyline> _axis;
-    readonly List<Polyline> _grid;
+    readonly IEnumerable<VertexCollection> _axis;
+    readonly IEnumerable<VertexCollection> _grid;
 
     public Origin()
     {
         _axis = [
-            new Polyline()
+            new Polyline(vertices: [new(0f, 0f, 0f), new(100f, 0f, 0f)])
             {
                 Color = Color.Red,
-                Vertices = [new(0f, 0f, 0f), new(100f, 0f, 0f)]
             },
-            new ()
+            new Polyline (vertices: [new(0f, 0f, 0f), new(0f, 100f, 0f)])
             {
                 Color = Color.Green,
-                Vertices = [new(0f, 0f, 0f), new(0f, 100f, 0f)]
             },
-            new ()
+            new Polyline (vertices: [new(0f, 0f, 0f), new(0f, 0f, 100f)])
             {
                 Color = Color.Blue,
-                Vertices = [new(0f, 0f, 0f), new(0f, 0f, 100f)]
             }
         ];
 
-        _grid = new Polyline()
+        _grid = new Polyline(vertices: [new(0, 0, 0), new(1, 0, 0), new(1, 1, 0), new(0, 1, 0)])
         {
-            Vertices = [new(0, 0, 0), new(1, 0, 0), new(1, 1, 0), new(0, 1, 0)],
             Color = Color.White,
             IsClosed = true
-        }.RectangularArray<Polyline>(new(1, 0, 0), new(0, 1, 0), 20, 20).ToList();
-
-        for (var i = 0; i < 400; i++)
-        {
-            _grid[i].Transformation *= Matrix.CreateTranslation(-10, -10, 0);
         }
+        .ApplyTransformation<Polyline>(Matrix.CreateTranslation(-10, -10, 0))
+        .RectangularArray<Polyline>(new(1, 0, 0), new(0, 1, 0), 20, 20);
     }
 
     public void Draw(GraphicsDevice device)
