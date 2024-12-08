@@ -11,11 +11,14 @@ public class Mesh : VertexCollection
 
     public override void Draw(GraphicsDevice device)
     {
+        var x =
+            TransformedVertices
+            .Select(vertex => new VertexPosition(vertex))
+            .ToArray();
+
         device.DrawUserIndexedPrimitives(
             primitiveType: PrimitiveType.TriangleList,
-            vertexData: TransformedEntities
-                .Select(vertex => new VertexPosition(vertex))
-                .ToArray(),
+            vertexData: x,
             vertexOffset: 0,
             numVertices: Count,
             indexData: Faces.ToArray(),

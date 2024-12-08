@@ -44,7 +44,10 @@ public class App : Game
 
         Window.Title = s_windowSettings.Title;
 
-        _camera = new(Device, new(0, -50, 50), Vector3.Zero);
+        _camera = new(
+            device: Device,
+            position: new(0, -50, 50),
+            target: Vector3.Zero);
 
         base.Initialize();
     }
@@ -53,7 +56,9 @@ public class App : Game
     {
         _effect = Content.Load<Effect>("effects");
 
-        _geometry.Add(new RectangularMesh(10, 5));
+        _geometry.Add(new RectangularMesh(
+            width: 5,
+            height: 5));
     }
 
     protected override void Update(GameTime gameTime)
@@ -89,8 +94,8 @@ public class App : Game
         {
             pass.Apply();
 
-            // foreach (var geometry in _geometry)
-            //     geometry.Draw(Device);
+            foreach (var geometry in _geometry)
+                geometry.Draw(Device);
 
             origin.Draw(Device);
         }

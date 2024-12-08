@@ -52,3 +52,4 @@ C:\Users\oshul\Desktop\Mono\MonoApp\obj\Debug\net8.0\refint\Mono.dll
 C:\Users\oshul\Desktop\Mono\MonoApp\obj\Debug\net8.0\Mono.pdb
 C:\Users\oshul\Desktop\Mono\MonoApp\obj\Debug\net8.0\Mono.genruntimeconfig.cache
 C:\Users\oshul\Desktop\Mono\MonoApp\obj\Debug\net8.0\ref\Mono.dll
+C:\Users\oshul\Desktop\Mono\monoapp\obj\Debug\net8.0\Mono.sourcelink.json

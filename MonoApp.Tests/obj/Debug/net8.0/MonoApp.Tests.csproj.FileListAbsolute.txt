@@ -7,6 +7,8 @@ C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\MonoApp.Tests.deps.js
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\MonoApp.Tests.runtimeconfig.json
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\MonoApp.Tests.dll
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\MonoApp.Tests.pdb
+C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\FluentAssertions.Core.dll
+C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\FluentAssertions.dll
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\Microsoft.TestPlatform.CoreUtilities.dll
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\Microsoft.TestPlatform.PlatformAbstractions.dll
@@ -91,6 +93,7 @@ C:\Users\oshul\Desktop\Mono\MonoApp.Tests\obj\Debug\net8.0\MonoApp.Tests.Generat
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\obj\Debug\net8.0\MonoApp.Tests.AssemblyInfoInputs.cache
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\obj\Debug\net8.0\MonoApp.Tests.AssemblyInfo.cs
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\obj\Debug\net8.0\MonoApp.Tests.csproj.CoreCompileInputs.cache
+C:\Users\oshul\Desktop\Mono\MonoApp.Tests\obj\Debug\net8.0\MonoApp.Tests.sourcelink.json
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\obj\Debug\net8.0\MonoApp..FCC3DC46.Up2Date
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\obj\Debug\net8.0\MonoApp.Tests.dll
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\obj\Debug\net8.0\refint\MonoApp.Tests.dll
@@ -114,5 +117,3 @@ C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\runtimes\osx\native\l
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\runtimes\win-x64\native\SDL2.dll
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\Mono.dll
 C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\Mono.pdb
-C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\FluentAssertions.Core.dll
-C:\Users\oshul\Desktop\Mono\MonoApp.Tests\bin\Debug\net8.0\FluentAssertions.dll
