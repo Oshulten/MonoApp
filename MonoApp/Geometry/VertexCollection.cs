@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ColorHelper;
 
 namespace Mono.Geometry;
 
-public class TransformableCollection<T>
+public class TransformableCollection<TEntity>
 {
-    public IEnumerable<T> Entities { get; set; } = [];
-    public List<Func<T, T>> Transformations { get; set; } = [];
+    public IEnumerable<TEntity> Entities { get; set; } = [];
+    public List<Func<TEntity, TEntity>> Transformations { get; set; } = [];
 
-    public IEnumerable<T> TransformedEntities
+    public IEnumerable<TEntity> TransformedEntities
     {
         get
         {
@@ -25,18 +24,16 @@ public class TransformableCollection<T>
         }
     }
 
-
     public int Count => Entities.Count();
 
-    public TransformableCollection<T> ApplyTransformations()
+    public TransformableCollection<TEntity> ApplyTransformations()
     {
         Entities = TransformedEntities;
         Transformations.Clear();
-
         return this;
     }
 
-    public TransformableCollection<T> ApplyTransformation(Func<T, T> transformation)
+    public TransformableCollection<TEntity> ApplyTransformation(Func<TEntity, TEntity> transformation)
     {
         Entities =
             from entity in Entities
@@ -51,9 +48,13 @@ public class VertexCollection : TransformableCollection<Vector3>
     public IEnumerable<Vector3> Vertices { get => Entities; set => Entities = value; }
     public IEnumerable<Vector3> TransformedVertices => TransformedEntities;
 
-    public VertexCollection ApplyTransformation<T>(Matrix matrix)
+    public T ApplyTransformation<T>(Matrix matrix)
     where T : VertexCollection =>
         (T)ApplyTransformation(vertex => Vector3.Transform(vertex, matrix));
+
+    public T ApplyTransformation<T>(Func<Vector3, Vector3> transformation)
+    where T : VertexCollection =>
+        (T)ApplyTransformation(vertex => transformation(vertex));
 
     public VertexCollection TransformedClone(Func<Vector3, Vector3> transformation) =>
         (VertexCollection)((VertexCollection)MemberwiseClone())

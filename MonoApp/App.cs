@@ -56,9 +56,13 @@ public class App : Game
     {
         _effect = Content.Load<Effect>("effects");
 
-        _geometry.Add(new RectangularMesh(
-            width: 5,
-            height: 5));
+        _geometry.Add(
+            new RectangularMesh(
+                width: 5,
+                height: 5)
+            .ApplyTransformation<RectangularMesh>(RectangularMesh.CylindricalTransform)
+            .ApplyTransformation<RectangularMesh>(Matrix.CreateScale(10))
+        );
     }
 
     protected override void Update(GameTime gameTime)

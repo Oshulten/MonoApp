@@ -14,17 +14,17 @@ public class PolarMesh : Mesh
         Spokes = spokes;
         Turns = turns;
 
-        Vertices = from radius in Iterators.Range((0, 1), Turns)
-                   from vertex in VectorGenerator.Circle(Spokes)
+        Vertices = from radius in Iterators.Range((0, 1), Turns + 1)
+                   from vertex in VectorGenerator.Circle(Spokes + 1)
                        .Transform(Matrix.CreateScale(radius))
                    select vertex;
 
-        Faces = Iterators.DoubleRange(1, Turns, 0, Spokes)
+        Faces = Iterators.DoubleRange(0, Turns + 1, 0, Spokes + 1)
             .SelectMany(turnSpoke =>
             {
                 var turn = turnSpoke.Item1;
                 var spoke = turnSpoke.Item2;
-                return turn == 1
+                return turn == 0
                     ? new int[] {
                         0,
                         Index(turn, spoke),
@@ -44,4 +44,6 @@ public class PolarMesh : Mesh
         turn == 0
             ? 0
             : (turn - 1) * Spokes + (spoke % Spokes) + 1;
+
+        
 }

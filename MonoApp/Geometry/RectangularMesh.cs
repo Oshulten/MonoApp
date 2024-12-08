@@ -47,4 +47,16 @@ public class RectangularMesh : Mesh
 
         return v * (Width + 1) + u;
     }
+
+    public static readonly Func<Vector3, Vector3> CylindricalTransform = vertex =>
+    {
+        float theta = vertex.X * MathHelper.TwoPi;
+
+        return new()
+        {
+            X = (float)Math.Cos(theta),
+            Y = vertex.Y,
+            Z = (float)Math.Sin(theta)
+        };
+    };
 }
