@@ -4,7 +4,7 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/oshul/Desktop/mono/monoapp/Content/effects.fx</File>
+    <File>C:/Users/oshul/Desktop/Mono/MonoApp/Content/effects.fx</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/oshul/Desktop/mono/monoapp/Content/effects.fx</SourceFile>
+  <SourceFile>C:/Users/oshul/Desktop/Mono/MonoApp/Content/effects.fx</SourceFile>
   <SourceTime>2024-11-28T16:24:36.1703259+01:00</SourceTime>
-  <DestFile>C:/Users/oshul/Desktop/mono/monoapp/Content/bin/DesktopGL/Content/effects.xnb</DestFile>
-  <DestTime>2024-12-08T06:23:56.7828591+01:00</DestTime>
+  <DestFile>C:/Users/oshul/Desktop/Mono/MonoApp/Content/bin/DesktopGL/Content/effects.xnb</DestFile>
+  <DestTime>2024-12-25T21:58:04.8329185+01:00</DestTime>
   <Importer>EffectImporter</Importer>
   <ImporterTime>2024-08-16T19:05:56+02:00</ImporterTime>
   <Processor>EffectProcessor</Processor>
